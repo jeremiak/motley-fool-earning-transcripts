@@ -18,6 +18,8 @@ jobs:
     - name: Run scripts
       run: npm start
     - name: Commit and push if it changed
+      env:
+        GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
       run: |-
         git config user.name "Automated"
         git config user.email "actions@users.noreply.github.com"
