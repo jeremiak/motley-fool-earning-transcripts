@@ -1,0 +1,20 @@
+{
+    "name": "motley-fool-earning-transcripts",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.mjs",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@prisma/client": "^4.7.1",
+        "p-queue": "^7.3.0",
+        "playwright": "^1.28.1",
+        "prisma": "^4.7.1",
+        "puppeteer": "^19.4.0"
+    }
+}

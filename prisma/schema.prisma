@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./transcripts.db"
+}
+
+model Transcript {
+  id            String    @id @default(uuid())
+  companyName   String
+  companyTicker String
+  quarter       Int
+  fiscalYear    Int
+  sourceUrl     String
+  content       String
+}
