@@ -1,0 +1,24 @@
+name: Deploy to Vercel
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 2'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10' 
+    - name: Install datasette and vercel plugin
+      run: pip install datasette datasette-publish-vercel
+    - name: Deploy Datasette using Vercel
+      env:
+        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      run: |-
+        datasette publish vercel mydb.db \
+          --token $VERCEL_TOKEN \
+          --project my-vercel-project
