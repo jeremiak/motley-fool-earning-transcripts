@@ -19,6 +19,6 @@ jobs:
       env:
         VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       run: |-
-        datasette publish vercel mydb.db \
+        datasette publish vercel prisma/transcripts.db \
           --token $VERCEL_TOKEN \
-          --project my-vercel-project
+          --project motley-fool-earning-transcripts
