@@ -24,4 +24,5 @@ jobs:
       run: |-
         datasette publish vercel prisma/transcripts.db \
           --token $VERCEL_TOKEN \
-          --project motley-fool-earning-transcripts
+          --project motley-fool-earning-transcripts \
+          --metadata datasette-metadata.json
