@@ -26,4 +26,5 @@ jobs:
       run: |-
         datasette publish fly prisma/transcripts.db \
           --app motley-fool-earning-transcripts \
-          --metadata datasette-metadata.json
+          --metadata datasette-metadata.json \
+          --extra-options \"--setting sql_time_limit_ms 5000\"
