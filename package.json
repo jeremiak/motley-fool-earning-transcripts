@@ -12,7 +12,6 @@
     "license": "ISC",
     "dependencies": {
         "p-queue": "^7.3.0",
-        "playwright": "^1.28.1",
         "puppeteer": "^19.4.0"
     }
 }
