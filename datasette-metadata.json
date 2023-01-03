@@ -1,18 +1,6 @@
 {
     "title": "Earning transcripts scraped from The Motley Fool",
-    "description": "Some description text can go here",
+    "description": "",
     "source": "Motley Fool earning transcripts",
-    "source_url": "https://www.fool.com/earnings-call-transcripts/",
-    "databases": {
-        "transcripts": {
-            "tables": {
-                "_prisma_migrations": {
-                    "hidden": true
-                },
-                "sqlite_sequence": {
-                    "hidden": true
-                }
-            }
-        }
-    }
+    "source_url": "https://www.fool.com/earnings-call-transcripts/"
 }

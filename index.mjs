@@ -1,20 +1,22 @@
-import { PrismaClient } from '@prisma/client'
+import { promises as fs } from 'fs'
 import puppeteer from 'puppeteer'
 import Queue from 'p-queue'
 
-const prisma = new PrismaClient()
 const headless = true
 const numberOfClicksOnLoadMore = 20
 const workerCount = 4
 
-async function findExistingTranscript({ sourceUrl }) {
-    const found = prisma.transcript.findFirst({
-        where: {
-            sourceUrl
+async function findExistingTranscript({ filename }) {
+    try {
+        const stat = await fs.stat(`./transcripts/${filename}.json`)
+        return true
+    } catch (e) {
+        if (e.code === 'ENOENT') {
+            return false
         }
-    })
 
-    return found
+        console.error(`uncaught error in findExistingTranscript`, e)
+    }
 }
 
 async function scrapeEarningCall(url, browser) {
@@ -89,21 +91,24 @@ calls.forEach(call => {
             year,
             href
         } = call
+        const filename = href.replace('/earnings/call-transcripts/', '').replace(/\/$/, '').replace(/\//g, '-')
         const sourceUrl = `https://www.fool.com${href}`
-        const alreadyExists = await findExistingTranscript({ sourceUrl })
-        if (alreadyExists) return
+        const alreadyExists = await findExistingTranscript({ filename })
+        if (alreadyExists) {
+            console.log(`Already exists - skipping ${companyName} transcript from FY ${year} Q${quarter}`)
+            return
+        }
         console.log(`Scraping ${companyName} transcript from FY ${year} Q${quarter}`)
         const content = await scrapeEarningCall(sourceUrl, browser)
-        await prisma.transcript.create({
-            data: {
-                companyName,
-                companyTicker: ticker,
-                quarter,
-                fiscalYear: year,
-                sourceUrl,
-                content,
-            }
-        })
+        const data = {
+            companyName,
+            companyTicker: ticker,
+            quarter,
+            fiscalYear: year,
+            sourceUrl,
+            content,
+        }
+        await fs.writeFile(`./transcripts/${filename}.json`, JSON.stringify(data, null, 2))
     })
 })
 

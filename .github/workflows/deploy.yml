@@ -20,11 +20,15 @@ jobs:
       with:
         python-version: '3.10'
     - uses: superfly/flyctl-actions/setup-flyctl@master
-    - name: Install datasette and plugins
-      run: pip install datasette datasette-publish-fly
+    - name: Install sqlite-utils, datasette and plugins
+      run: pip install sqlite-utils datasette datasette-publish-fly
     - name: Deploy Datasette using Fly
       run: |-
-        datasette publish fly prisma/transcripts.db \
+        for file in ./transcripts/*.json
+        do
+          sqlite-utils insert transcripts.db Transcript $file --pk sourceUrl
+        done
+        datasette publish fly transcripts.db \
           --app motley-fool-earning-transcripts \
           --extra-options "--setting sql_time_limit_ms 5000" \
           --metadata datasette-metadata.json
