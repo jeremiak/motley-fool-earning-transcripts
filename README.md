@@ -5,3 +5,5 @@ I wanted to be able to search through many different corporate earning call tran
 Source: [Motley Fool earning transcripts](https://www.fool.com/earnings-call-transcripts/)
 
 [![Scrape earning call transcripts](https://github.com/jeremiak/motley-fool-earning-transcripts/actions/workflows/scrape.yml/badge.svg)](https://github.com/jeremiak/motley-fool-earning-transcripts/actions/workflows/scrape.yml)
+
+And a cover-my-ass disclosure: I'm not using this data in any sort of commercial activity.
