@@ -26,7 +26,7 @@ jobs:
       run: |-
         for file in ./transcripts/*.json
         do
-          sqlite-utils insert transcripts.db transcript $file --pk sourceUrl
+          sqlite-utils insert transcripts.db Transcript $file --pk sourceUrl
         done
         datasette publish fly transcripts.db \
           --app motley-fool-earning-transcripts \
